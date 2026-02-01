@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHAHJALAL SHAKIL | Professional Portfolio</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons (type="module" removed for better compatibility) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+    (function(){
+        emailjs.init("tdPmYav9nalU3R2Gh");
+        })();
+    </script>
+
+    
+
+    <style>
+        
+        /* Define color variables for both themes */
+        :root {
+            /* Dark Mode Defaults */
+            --bg-color: #0d1117;
+            --card-bg: rgba(17, 24, 39, 0.7);
+            --text-color: #c9d1d9;
+            --icon-color:white;
+            --primary-color: #3B82F6;
+            --border-color: #dfe2e7;
+            --dot-color: #4b4ef3;
+            --dot-border: #92beff;
+            --neumorph-inset-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5), inset -5px -5px 10px rgba(45, 45, 45, 0.2);
+            --neumorph-lift-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4), -4px -4px 8px rgba(45, 45, 45, 0.2);
+            --gradient-start: #6EE7B7; 
+            --gradient-end: #3B82F6;  
+            --bg-gradient-start: #100c1f;
+            --bg-gradient-end: #081f2c;
+            --spotlight-color: rgba(59, 131, 246, 0.177);
+            --spotlight-size: 400px;
+            --text-color-2: #00eaff;
+            --nav-button-bg: rgba(17, 24, 39, 0.7);
+            --card-gradientbg: rgba(17, 24, 39, 0.7);
+        }
+
+        body.light-mode {
+            --bg-color: #caebfb; 
+            --text-color: #000000; 
+            --card-bg: #f3f4f6; 
+            --primary-color: #4b749f;
+            --icon-color:black; 
+            --border-color: #4b5054;
+            --dot-color: #000909; 
+            --dot-border: #00000098;
+            --neumorph-inset-shadow: inset 5px 5px 5px #a1a1a1, inset -5px -5px 5px #ffffff;
+            --neumorph-lift-shadow: 4px 4px 10px #8f8f8f, -4px -4px 10px #ffffff;
+            --gradient-start: #243748; 
+            --gradient-end: #4b749f;  
+            --bg-gradient-start: #ddfbf8; 
+            --bg-gradient-end: #b4eff9;
+            --spotlight-color: rgba(0, 255, 170, 0.215);
+            --spotlight-size: 400px;
+            --text-color-2: #131216;
+            --nav-button-bg:#cacaca;    
+        }
+
+        .text-color-2 {
+            color: var(--text-color-2);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            scroll-behavior: smooth;
+            transition: background-color 0.6s ease, color 0.4s ease;
+        }
+
+        body.menu-open {
+            overflow: hidden;
+        }
+
+        .bg-gradient-layer {
+            position: fixed; 
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+            background-color: #030712;
+            background-image: radial-gradient(ellipse 80% 80% at 50% -20%, rgba(120, 119, 198, 0.3), rgba(255, 255, 255, 0));
+        }
+        
+        body.light-mode .bg-gradient-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2; 
+            pointer-events: none;
+            background-color: #d1e1e4;
+            background-image: radial-gradient(ellipse 80% 80% at 50% -20%, rgba(193, 225, 247, 0.214), rgba(202, 243, 248, 0.345));
+        }
+
+       #about-container {
+            position: relative;
+            background-color: var(--bg-gradient-start);
+            border-radius: 1rem; 
+            padding: 1px; 
+            overflow: visible; 
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .spotlight-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            border-radius: 1rem;
+            background: radial-gradient(
+                500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+                var(--gradient-start), 
+                var(--gradient-end),
+                transparent 80%
+            );
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        #about-container::before {
+            content: '';
+            position: absolute;
+            inset: -20px;
+            z-index: -2;
+            background: radial-gradient(
+                500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+                var(--spotlight-color), 
+                transparent 80%
+            );
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            border-radius: 1rem;
+            filter: blur(25px);
+        }
+
+        #about-container:hover .spotlight-glow,
+        #about-container:hover::before {
+            opacity: 1;
+        }
+
+        .about-content-inner {
+            background-image: linear-gradient(to bottom right, var(--bg-gradient-start), var(--bg-gradient-end));
+            border-radius: 1rem;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            z-index: 2;
+        }
+       .spotlight-card {
+            position: relative;
+            background-color: var(--card-bg); 
+            border-radius: 23px;
+            padding: 1.5px; 
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            box-shadow: #00000033 0px 4px 6px -1px, #0000001a 0px 2px 4px -1px;
+        }
+
+        .spotlight-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(
+                var(--spotlight-size) circle at var(--mouse-x, 0) var(--mouse-y, 0),
+                var(--primary-color),
+                transparent 80%
+            );
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .spotlight-card:hover::before {
+            opacity: 1;
+        }
+
+        .spotlight-content {
+            position: relative;
+            z-index: 1;
+            background-color: var(--card-bg);
+            border-radius: 23px;
+            height: 100%;
+            width: 100%;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .spotlight-card:hover {
+            transform: translateY(-5px);
+        }
+        .spotlight-inner {
+            position: relative;
+            z-index: 1;
+            background-color: var(--card-bg);
+            border-radius: 23px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            backdrop-filter: blur(12px);
+            height: 100%;
+            overflow: hidden;
+        }
+        .spotlight-text {
+            position: relative;
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+            color:rgba(255, 255, 255, 0.1); 
+            background: radial-gradient(
+                200px circle at var(--mouse-x-inner, 0) var(--mouse-y-inner, 0),
+                var(--primary-color) 0%,
+                var(--gradient-start) 30%,
+                rgba(255, 255, 255, 0.1) 70%
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: background 0.1s ease;
+        }
+
+        body.light-mode .spotlight-text {
+            color: rgba(0, 0, 0, 0.05);
+            background: radial-gradient(
+                200px circle at var(--mouse-x-inner, 0) var(--mouse-y-inner, 0),
+                var(--primary-color) 0%,
+                var(--gradient-end) 30%,
+                rgba(0, 0, 0, 0.05) 70%
+            );
+            -webkit-background-clip: text;
+        
+        }
+        .card-overlay {
+            position: absolute;
+            bottom: -100%; 
+            left: 0;
+            width: 100%;
+            height: 30%; 
+            background: linear-gradient(to top, var(--gradient-start), var(--gradient-end));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: bottom 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 10;
+            padding: 1.5rem;
+            color: white;
+            border-radius: 23px 23px 0 0;
+            box-shadow: 0 -10px 20px rgba(0,0,0,0.2);
+        }
+
+        .spotlight-card:hover .card-overlay {
+            bottom: 70%; 
+        }
+
+        #theme-toggle-desktop, #theme-toggle-mobile {
+            width: 36px;
+            height: 36px;
+            position: relative;
+            background-color: var(--nav-button-bg); 
+            border: 1px solid var(--border-color); 
+            border-radius: 50%; 
+            padding: 0; 
+            display: flex; 
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out; 
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+        }
+
+        body:not(.light-mode) #theme-toggle-desktop,
+        body:not(.light-mode) #theme-toggle-mobile {
+            background-color: var(--card-bg);
+        }
+        
+        .switch-icon-container {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: none; 
+        }
+        
+        .switch-icon-container.light,
+        body:not(.light-mode) .switch-icon-container {
+            transform: none;
+            background-color: transparent;
+        }
+
+        .switch-icon-container i {
+             width: 20px;
+             height: 20px;
+        }
+
+        @keyframes spin-360 {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(0.8); opacity: 0.7; } 
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        .switch-icon-container.spin-active {
+            animation: spin-360 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); 
+        }
+
+        @keyframes toggle-pulse-spin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.15); border-color: #3B82F6; } 
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        .animating-toggle {
+            animation: toggle-pulse-spin 0.6s ease-in-out;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.7);
+        }
+
+        .card-glow {
+            background-color: var(--card-bg); 
+            backdrop-filter: blur(8px); 
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        .card-glow:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.1);
+        }
+        
+        body.light-mode .card-glow:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+
+        .gradient-text {
+            background-image: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        #about-container {
+            background-image: linear-gradient(to bottom right, var(--bg-gradient-start), var(--bg-gradient-end));
+            border-radius: 1rem; 
+            box-shadow: 0;
+            transition: all 0.6s ease;
+        }
+
+        body.light-mode #about-container {
+             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05); 
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            border-left: 2px solid var(--border-color);
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: var(--dot-color); 
+            border: 3px solid var(--dot-border);
+        }
+
+        .header-bg {
+            background-color: var(--bg-color);
+        }
+
+        .circular-fab {
+            width: 150px;
+            height: 150px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #circular-text-display {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            animation: rotate 15s linear infinite;
+            text-transform: uppercase;
+            font-weight: 500;
+            font-size: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        #circular-text-display span {
+            position: absolute;
+            left: 50%;
+            transform-origin: 0 75px; 
+            height: 75px; 
+            top: 0;
+            padding-left: 2px;
+            font-weight: 700;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .fab-glow {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end)) !important;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+        .fab-glow::before {
+            content: '';
+            position: absolute;
+            inset: -12px;
+            background: radial-gradient(circle, var(--gradient-end) 0%, transparent 70%);
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.4s ease;
+        }
+        .fab-glow:hover::before {
+            opacity: 0.6;
+        }
+        .fab-glow:hover {
+            box-shadow: 0 0 35px rgba(59, 130, 246, 0.8);
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        @keyframes glow-move {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .main-fab { 
+            width: 60px; 
+            height: 60px; 
+            border-radius: 50%; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            z-index: 10; 
+            position: relative; 
+        }
+
+        .contact-input {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .contact-input:focus {
+            outline: none;
+            border-color: #3B82F6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+        }
+
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            transition-delay: var(--delay, 0s);
+        }
+        .scroll-reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .v-slider {
+            height: 1.2em; 
+            overflow: hidden;
+            display: inline-block;
+            vertical-align: top;
+            line-height: 1.2em;
+            font-weight: 700;
+        }
+
+        .v-slider__words {
+            display: inline-block;
+            animation: slide 6s infinite;
+            position: relative;
+            top: 0;
+        }
+
+        .v-slider__words span {
+            display: block;
+            color: #3B82F6; 
+            height: 1.2em;
+        }
+
+        @keyframes slide {
+            0% { transform: translateY(0); } 
+            45% { transform: translateY(0); } /* Hold "Service" for 2s */
+            50% { transform: translateY(-1.2em); } /* Transition to "Calibration" */
+            95% { transform: translateY(-1.2em); } /* Hold "Calibration" for 2s */
+            100% { transform: translateY(0); } /* Transition back to "Service" */
+        }
+
+        .social-slider-container {
+            max-width: 100%; /* Ensure it respects parent width */
+            transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Custom cubic-bezier for smooth slide */
+            border-radius: 0.5rem; /* rounded-lg */
+        }
+
+        @media (max-width: 768px) {
+            .social-slider-container {
+                /* On small screens, limit max expansion to 90% of screen width */
+                max-width: 90vw;
+            }
+            .social-slider-container:hover {
+                 width: 90vw;
+            }
+        }
+
+        .nav-icon-button {
+            display: flex;
+            align-items: center;
+            justify-content: center; 
+            height: 36px;
+            width: 36px;
+            padding: 0; 
+            border-radius: 9999px; 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            color: var(--text-color);
+            background-color: var(--nav-button-bg); 
+            overflow: hidden; 
+            white-space: nowrap; 
+            cursor: pointer;
+            box-shadow: var(--neumorph-lift-shadow);
+            position: relative; 
+        }
+
+        .nav-icon {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(0.8); 
+            opacity: 1;
+            z-index: 30; 
+            transition: opacity 0.15s ease, transform 0.2s ease; 
+        }
+
+        .nav-icon-button .icon-label {
+            position: absolute; 
+            left: 50%; 
+            top: 50%;
+            transform: translate(-50%, -50%); 
+            margin-left: -50px; 
+            opacity: 0; 
+            z-index: 20; 
+            font-size: 0.875rem; 
+            font-weight: 500; 
+            transition: opacity 0.3s ease, margin-left 0.3s ease; 
+        }
+
+        .nav-icon-button:hover {
+            width: 120px; 
+            color: var(--icon-color); 
+            box-shadow: var(--neumorph-lift-shadow);
+            transform: scale(1.02); 
+        }
+        
+        .nav-icon-button:hover .nav-icon {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.5); 
+            transition: opacity 0.15s ease, transform 0.2s ease; 
+        }
+
+        .nav-icon-button:hover .icon-label {
+            opacity: 1; 
+            margin-left: 0; 
+            transition: opacity 0.3s ease 0.25s, ease 0.25s;
+        }
+
+        .nav-icon-button:active,
+        .nav-icon-button:focus {
+            box-shadow: var(--neumorph-inset-shadow); 
+            transform: scale(0.98);
+            outline: none;
+            color: var(--icon-color);
+        }
+
+        .btn-glow-gradient {
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            border: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: visible;
+        }
+
+        .btn-glow-gradient-outline {
+            position: relative;
+            z-index: 1;
+            background: var(--bg-color);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            transition: all 0.3s ease;
+        }
+        .btn-glow-gradient-outline::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            z-index: -1;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            border-radius: inherit;
+        }
+
+        .btn-glow-gradient::after, .btn-glow-gradient-outline::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end), var(--gradient-start));
+            background-size: 200% 200%;
+            z-index: -1;
+            border-radius: inherit;
+            opacity: 0;
+            filter: blur(12px);
+            transition: opacity 0.3s ease;
+            animation: glow-move 3s linear infinite;
+        }
+        
+        .btn-glow-gradient:hover::after, .btn-glow-gradient-outline:hover::after {
+            opacity: 0.7;
+        }
+        
+        .btn-glow-gradient:hover, .btn-glow-gradient-outline:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        .gallery-container {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            padding: 2rem 0;
+        }
+
+        .gallery-track {
+            display: flex;
+            width: calc(250px * 10); 
+            animation: scroll 40s linear infinite;
+        }
+
+        .gallery-track:hover {
+            animation-play-state: paused;
+        }
+
+        .gallery-item {
+            width: 300px;
+            flex-shrink: 0;
+            margin-right: 2rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 1.5rem;
+            overflow: hidden;
+            transition: transform 0.9s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            border-color: var(--primary-color);
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-332px * 5)); } 
+        }
+        .footer-link {
+            color: #ffffff;      
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s ease;
+        }
+        .footer-link:hover {
+            color: #77faea;
+            text-shadow: 0 0 8px rgba(124, 124, 255, 0.8);
+        }
+    </style>
+
+
+
+</head>
+
+
+<body>
+    <div class="bg-gradient-layer"></div>
+  
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-50 bg-black/20 backdrop-blur-md border-b border-white/5">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="#" class="text-2xl font-bold gradient-text">Shahjalal Shakil</a>
+                
+                
+                <!-- DESKTOP Nav Links and Theme Toggle (Visible on md and above) -->
+                <div class="hidden md:flex items-center space-x-3">
+                    <!-- Navigation links are now icons with Neumorphism button effects and text reveal on hover -->
+                    <a href="#about" class="nav-icon-button" title="Profile">
+                        <i data-lucide="user" class="nav-icon"></i>
+                        <span class="icon-label">Profile</span>
+                    </a>
+                    <a href="#skills" class="nav-icon-button" title="Capabilities">
+                        <i data-lucide="zap" class="nav-icon"></i>
+                        <span class="icon-label">Capabilities</span>
+                    </a>
+                    <a href="#experience" class="nav-icon-button" title="Journey">
+                        <i data-lucide="briefcase" class="nav-icon"></i>
+                        <span class="icon-label">Journey</span>
+                    </a>
+                    <a href="#projects" class="nav-icon-button" title="Creations">
+                        <i data-lucide="folder-check" class="nav-icon"></i>
+                        <span class="icon-label">Creations</span>
+                    </a>
+                    <a href="#education" class="nav-icon-button" title="Qualifications">
+                        <i data-lucide="graduation-cap" class="nav-icon"></i>
+                        <span class="icon-label">Qualifications</span>
+                    </a>
+                    <a href="#gallery" class="nav-icon-button" title="Gallery">
+                        <i data-lucide="image" class="nav-icon"></i>
+                        <span class="icon-label">Gallery</span>
+                    </a>
+                    <a href="#contact" class="nav-icon-button" title="Let's Talk">
+                        <i data-lucide="mail" class="nav-icon"></i>
+                        <span class="icon-label">Reach Out</span>
+                    </a>
+
+                    <!-- Theme Toggle Button (Desktop) - Now Round -->
+                    <button id="theme-toggle-desktop" class="focus:outline-none" title="Toggle Theme">
+                        <div id="switch-icon-desktop" class="switch-icon-container">
+                            <i data-lucide="sun" class="w-4 h-4 text-black-400 light-mode:text-yellow-600" id="theme-icon-desktop"></i>
+                        </div>
+                    </button>
+                </div>
+                
+                <!--  Mobile Menu Toggle and Theme Toggle -->
+                <div class="flex items-center md:hidden">
+                    <!-- Theme Toggle Button (Mobile) - Now Round -->
+                    <button id="theme-toggle-mobile" class="focus:outline-none" title="Toggle Theme">
+                         <div id="switch-icon-mobile" class="switch-icon-container">
+                            <i data-lucide="sun" class="w-4 h-4 text-gray-400 light-mode:text-yellow-600" id="theme-icon-mobile"></i>
+                        </div>
+                    </button>
+                    <!--  Menu Button -->
+                    <button id="menu-toggle" class="p-2 rounded-full hover:bg-gray-700 light-mode:hover:bg-gray-200 transition ml-2">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <!--  Mobile Menu Overlay (Off-Canvas Menu) -->
+    <div id="mobile-menu" class="fixed inset-y-0 left-0 z-[100] transform -translate-x-full w-64 transition-transform duration-300 md:hidden shadow-2xl" style="background-color: var(--card-bg);">
+        <div class="h-full flex flex-col">
+            <!-- Menu Header -->
+            <div class="flex justify-between items-center h-16 px-4 border-b" style="border-color: var(--border-color);">
+                <a href="#" class="text-xl font-bold gradient-text">Shahjalal Shakil</a>
+                <button id="close-menu" class="p-2 rounded-full hover:bg-gray-700 light-mode:hover:bg-gray-200 transition">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <!-- Menu Links -->
+            <div class="flex flex-col p-4 space-y-2 flex-grow overflow-y-auto">
+                <a href="#about" class="mobile-nav-link text-lg font-medium hover:text-blue-400 transition py-3 px-2 rounded-md">Profile</a>
+                <a href="#skills" class="mobile-nav-link text-lg font-medium hover:text-blue-400 transition py-3 px-2 rounded-md">Capabilities</a>
+                <a href="#experience" class="mobile-nav-link text-lg font-medium hover:text-blue-400 transition py-3 px-2 rounded-md">Journey</a>
+                <a href="#projects" class="mobile-nav-link text-lg font-medium hover:text-blue-400 transition py-3 px-2 rounded-md">Creations</a>
+                <a href="#education" class="mobile-nav-link text-lg font-medium hover:text-blue-400 transition py-3 px-2 rounded-md">Education</a>
+                <a href="#gallery" class="mobile-nav-link text-lg font-medium hover:text-blue-400 transition py-3 px-2 rounded-md">Gallery</a>
+                <a href="#contact" class="mobile-nav-link text-lg font-medium hover:text-blue-400 transition py-3 px-2 rounded-md">Reach Out</a>
+            </div>
+            <div class="p-4 border-t" style="border-color: var(--border-color);">
+                <p class="text-sm text-gray-500">Shahjalal Shakil</p>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <!-- 1. About Me Section -->
+        <section id="about" class="py-16 md:py-24 flex flex-col md:flex-row items-center gap-12 text-center md:text-left scroll-reveal" style="--delay: 0s;">
+            <div id="about-container" class="rounded-2xl shadow-xl p-8 md:p-12 scroll-reveal" style="--delay: 0s;">
+                <div class="spotlight-glow"></div> 
+                <div class="about-content-inner p-8 md:p-16">
+                    <div class="flex flex-col md:flex-row items-center gap-12 text-center md:text-left">
+                        <div class="md:w-3/5">
+                            <p class="text-xl font-medium text-blue-500 mb-3 scroll-reveal" style="--delay: 0.1s;">Hey there! I am</p>
+                            <h1 class="text-5xl sm:text-7xl font-extrabold mb-6 leading-tight scroll-reveal gradient-text" style="--delay: 0.2s;">
+                                Shahjalal Shakil
+                            </h1>
+                            <h2 class="sm:text-4xl font-semibold mb-6 scroll-reveal flex flex-row items-center justify-center text-left md:justify-start md:text-left gap-2" style="--delay: 0.3s;">
+                                Engineer 
+                                <span class="v-slider">
+                                    <span class="v-slider__words">
+                                        <span>Service</span>
+                                        <span>Calibration</span>
+                                    </span>
+                                </span>
+                                
+                            </h2>
+                            <p class="text-lg text-gray-400 light-mode:text-gray-600 mb-8 scroll-reveal" style="--delay: 0.4s;">
+                                My career objective is to obtain a challenging, long-term position that requires a strong sense of responsibility and commitment, allowing me to develop my skills and creativity. My expertise focuses on troubleshooting machinery, mechanical systems, electrical equipment, and providing textile testing and calibration services.
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                                <a href="https://drive.google.com/file/d/1jCLLTaJxxg5dxN-tFO2HYnS9JsTMJZ56/view?usp=sharing" onclick="alert('Do You Want To Download the CV File?');" class="inline-flex items-center btn-glow-gradient bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 shadow-xl light-mode:bg-gray-300 light-mode:text-gray-800 light-mode:hover:bg-gray-400 scroll-reveal" style="--delay: 0s;">
+                                     My Resume <i data-lucide="download" class="w-5 h-5 ml-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="md:w-2/5 flex justify-center scroll-reveal" style="--delay: 0.6s;">
+                            <div class="w-100 h-100 flex items-center justify-center">
+                                <img id="profile-picture" 
+                                 class="profile-img w-200 h-200 object-cover"  
+                                 src="https://i.postimg.cc/vZM0JTwF/Picsart-25-12-13-03-06-18-185.png" 
+                                 alt="MD. Shah Jalal Mia Profile Picture"
+                                 onerror="this.onerror=null; this.src='https://placehold.co/256x256/3B82F6/FFFFFF/png?text=Image+Unavailable';">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Skills Section -->
+        <section id="skills" class="py-16 border-t border-gray-800 light-mode:border-gray-300">
+            <h3 class="text-4xl font-bold mb-12 text-center gradient-text scroll-reveal">
+                <i data-lucide="zap" class="inline-block w-8 h-8 mr-3"></i> My Expertise
+            </h3>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Technical Skills -->
+                <div class="spotlight-card scroll-reveal">
+                    <div class="spotlight-content">
+                        <div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mb-6">
+                            <i data-lucide="wrench" class="text-blue-500"></i>
+                        </div>
+                        <h4 class="text-xl font-bold gradient-text mb-4">Technical Expertise</h4>
+                        <ul class="list-disc list-inside text-black-300 space-y-3 light-mode:text-black-700">
+                            <li>Mechanical & Electrical Troubleshooting</li>
+                            <li>Textile Testing Equipment Operation</li>
+                            <li>Calibration of Industrial & Laboratory Instruments</li>
+                            <li>Preventive & Corrective Maintenance</li>
+                            <li>Quality Control & Assurance Procedures</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Computer Literacy -->
+                <div class="spotlight-card scroll-reveal" style="transition-delay: 0.1s;">
+                    <div class="spotlight-content">
+                        <div class="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center mb-6">
+                            <i data-lucide="monitor" class="text-purple-500"></i>
+                        </div>
+                        <h4 class="text-xl font-bold gradient-text mb-4">Digital Literacy
+                        </h4>
+                        <ul class="list-disc list-inside text-black-300 space-y-3 light-mode:text-black-700">
+                        <li>Ms-Word, Ms-Excel, Ms Power Point, Networking (LAN, WAN, Internet)</li>
+                        <li>Photoshop, Illustrator, Video Editing, Android App Development</li>
+                        <li>Downloading & Software Install</li></ul>
+                    </div>
+                </div>
+
+                <!-- Core Competencies -->
+                <div class="spotlight-card scroll-reveal" style="transition-delay: 0.2s;">
+                    <div class="spotlight-content">
+                        <div class="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center mb-6">
+                            <i data-lucide="shield-check" class="text-green-500"></i>
+                        </div>
+                        <h4 class="text-xl font-bold gradient-text mb-4">Quality & Standards</h4>
+                         <ul class="list-disc list-inside text-black-300 space-y-3 light-mode:text-black-700">
+                        <li>Troubleshooting & Root Cause Analysis</li>
+                        <li>Quality Assurance (QA) & Management</li>
+                        <li>ISO and ASTM Testing Standards</li>
+                        <li>Recruitment & Selection Process Management</li>
+                        <li>Digital Marketing (Learning and Earning Development Project)</li></ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Experience Section (Timeline) -->
+        <section id="experience" class="py-16 border-t border-gray-800 light-mode:border-gray-300">
+            <h3 class="text-4xl font-bold mb-12 text-center gradient-text scroll-reveal">
+                <i data-lucide="briefcase" class="inline-block w-8 h-8 mr-3"></i> Professional Experience
+            </h3>
+            <div class="max-w-4xl mx-auto">
+                
+                <!-- Job 1: Farabi Corporation (Latest) -->
+                <div class="timeline-item pb-10 scroll-reveal" style="--delay: 0.1s;">
+                    <p class="text-sm font-medium text-black-400 light-mode:text-black-500">July 2024 - Present</p>
+                    <h4 class="text-3xl font-bold gradient-text">Engineer (Service & Calibration)</h4>
+                    <p class="text-lg text-color-2 mb-2 font-bold  ">Farabi Corporation</p>
+                    <ul class="list-disc list-inside text-black-400 space-y-1 light-mode:text-black-600">
+                        <li>Diagnose and troubleshoot technical issues in machinery, mechanical systems, and electrical appliances, ensuring timely and effective resolution.</li>
+                        <li>Install, service, and maintain textile testing machines and laundry systems, including Electrolux washers, dryers, and ironing machines.</li>
+                        <li>Conducting calibration services for various laboratory and industrial equipment to maintain accuracy and compliance with industry standards.</li>
+                        <li>Implement problem solving strategies to identify root causes, gather technical information, and implement sustainable solutions.</li>
+                        <li>Conduct recruitment and selection processes to meet organizational manpower requirements.</li>
+                        <li>Voluntarily travel to client sites and project locations, taking full responsibility for delivering assigned tasks and services.</li>
+                    </ul>
+                </div>
+
+                <!-- Job 2: SmartCare Solution Ltd. -->
+                <div class="timeline-item pb-10 scroll-reveal" style="--delay: 0.2s;">
+                    <p class="text-sm font-medium text-black-400 light-mode:text-black-500">February 2023 - June 2024</p>
+                    <h4 class="text-3xl font-bold gradient-text">Asst. Engineer (Service & Calibration)</h4>
+                    <p class="text-lg text-color-2 mb-2 font-bold">SmartCare Solution Ltd.</p>
+                    <ul class="list-disc list-inside text-black-400 space-y-1 light-mode:text-black-600">
+                        <li>Diagnose and troubleshoot technical issues in machinery, mechanical systems, and electrical appliances, ensuring timely and effective resolution.</li>
+                        <li>Install, service, and maintain textile testing machines and laundry systems, including Electrolux washers, dryers, and ironing machines.</li>
+                        <li>Conducting calibration services for various laboratory and industrial equipment to maintain accuracy and compliance with industry standards.</li>
+                        <li>Implement problem solving strategies to identify root causes, gather technical information, and implement sustainable solutions.</li>
+                        <li>Conduct recruitment and selection processes to meet organizational manpower requirements.</li>
+                        <li>Voluntarily travel to client sites and project locations, taking full responsibility for delivering assigned tasks and services.</li>
+                        <li>Managing Recruitment & Selection Process as per requirements</li>
+                    </ul>
+                </div>
+
+                <!-- Job 3: MastTech International Ltd -->
+                <div class="timeline-item pb-10 scroll-reveal" style="--delay: 0.3s;">
+                    <p class="text-sm font-medium text-black-400 light-mode:text-black-500">June 2022 - February 2023</p>
+                    <h4 class="text-3xl font-bold gradient-text">Service Engineer</h4>
+                    <p class="text-lg text-color-2 mb-2 font-bold">MastTech International Ltd</p>
+                    <ul class="list-disc list-inside text-black-400 space-y-1 light-mode:text-black-600">
+                        <li>Diagnose and troubleshoot technical issues in machinery, mechanical systems, and electrical appliances, ensuring timely and effective resolution.</li>
+                        <li>Install, service, and maintain textile testing machines and laundry systems, includingKURISH (Auto cutter, Spreading Machine), Algotex (Cutter-Plotter, Plotter), ZSK(Embroidery).</li>
+                        <li>Conducting calibration services for various laboratory and industrial equipment to maintain accuracy and compliance with industry standards.</li>
+                        <li>Implement problem solving strategies to identify root causes, gather technical information, and implement sustainable solutions.</li>
+                        <li>Conduct recruitment and selection processes to meet organizational manpower requirements.</li>
+                        <li>Voluntarily travel to client sites and project locations, taking full responsibility for delivering assigned tasks and services. </li>
+                    </ul>
+                </div>
+
+                <!-- Job 4: Bangladesh Material Testing Laboratory (BMTL) -->
+                <div class="timeline-item pb-10 scroll-reveal" style="--delay: 0.4s;">
+                    <p class="text-sm font-medium text-black-400 light-mode:text-black-500">October 2019 - June 2022</p>
+                    <h4 class="text-3xl font-bold gradient-text">Lab Technician</h4>
+                    <p class="text-lg text-color-2 mb-2 font-bold">Bangladesh Material Testing Laboratory (BMTL)</p>
+                    <ul class="list-disc list-inside text-black-400 space-y-1 light-mode:text-black-600">
+                        <li>Responsible for all technical operation of the Laboratory.</li>
+                        <li>Lab machine operating, hardware and software installation, maintenance, Inventory, Quality assurance, report making.</li>
+                        <li>Developing quality manual, quality checklist, SOP etc.</li>
+                        <li>Supervising tests and calibrations according to ISO and ASTM Testing standards.</li>
+                        <li>Conducted ISO and ASTM Testing standard, and prepared engineering testing report.</li>
+                        <li>Maintaining company’s confidential Documents. </li>
+                        <li>Time to time follow up & decision taken for quick support on maintenance purpose to management.</li>
+                    </ul>
+                </div>
+                <!-- Job 5: Industrial Training -->
+                <div class="timeline-item pb-0 scroll-reveal" style="--delay: 0.5s;">
+                    <p class="text-sm font-medium text-black-400 light-mode:text-black-500">February2019 - April 2019</p>
+                    <h4 class="text-3xl font-bold gradient-text">Industrial Training</h4>
+                    <p class="text-lg text-color-2 mb-2 font-bold  ">Impress-Newtex Composite Textiles Ltd.</p>
+                    <ul class="list-disc list-inside text-black-400 space-y-1 light-mode:text-black-600">
+                        <li>Understanding Training Course on ISO/ISE 17025:2017 Bangladesh Accreditation Board (BAB), Ministry of Industries.</li>
+                        <li>Technical Training Course for Calibration on Mechanical, Electro Technical,Thermal Instruments under ISO/ISE 17025:2017, Easterin Calibrators, 58/3, Prince Anwar Shah Rd, Kolkata, India.</li>
+                        <li>Have a good Work knowledge and experience on Solar Electrical System under National Technical & Vocational Qualification Frame Work (NTVQF) Level- 1 and Level-2.</li>
+                        <li>Have a good Work knowledge and experience on The National Standard Basic (360 Hrs.) 6 Month Course in Computer Office Application. Grade-(A) Out of (A+).</li>
+                        <li>Have a good Work knowledge and experience on Professional Outsourcing Training on Digital Marketing conducted by the Learning and Earning Development Project. (ICT Division).</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 4. Projects Section -->
+        <section id="projects" class="py-24 border-t border-white/5">
+            <div class="text-center mb-16 scroll-reveal">
+                <h3 class="text-4xl font-bold mb-12 text-center gradient-text scroll-reveal">
+                    <i data-lucide="folder-check" class="inline-block w-8 h-8 mr-3"></i> Projects
+                </h3>
+            </div>
+            
+            <div class="max-w-4xl mx-auto spotlight-card scroll-reveal">
+                <div class="spotlight-inner" id="spotlight-trigger">
+                    <div class="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-8">
+                        <i data-lucide="lock" class="text-blue-500 w-8 h-8"></i>
+                    </div>
+                    
+                    <h2 class="spotlight-text flex text-center justify-center">Coming Soon!</h2>
+                    
+                    <p class="text-white-500 light-mode:text-black-800 font-medium mt-6 text-center max-sm">
+                        Currently focused on developing innovative solutions in textile laboratory machinery servicing. Detailed project showcases and case studies will be featured here soon, highlighting successful installations, complex troubleshooting achievements, and advanced calibration projects.
+                    </p>
+                    
+                    <div class="mt-10 flex gap-3">
+                        <span class="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></span>
+                        <span class="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></span>
+                        <span class="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style="animation-delay: 0.4s"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- 5. Education Section -->
+        <section id="education" class="py-16 border-t border-gray-800 light-mode:border-gray-300">
+            <div class="text-4xl font-bold mb-12 text-center gradient-text scroll-reveal">
+                <h3 class="text-4xl font-bold mb-12 text-center gradient-text scroll-reveal">
+                    <i data-lucide="graduation-cap" class="inline-block gradient-text h-8 mr-3"></i> Qualifications
+
+                </h3>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Education Card 1 -->
+                <div class="spotlight-card scroll-reveal" style="transition-delay: 0.1s">
+                    <div class="spotlight-inner p-10 text-center">
+                        <div class="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-6">
+                            <i data-lucide="award" class="text-blue-500 w-8 h-8"></i>
+                        </div>
+                        <span class="text-xs font-bold  uppercase tracking-widest mb-2">Bachelor In Science</span>
+                        <h4 class="text-xl text-color-2 font-bold mb-3">BSc Engineer</h4>
+                        <p class=" text-sm text-color-2 leading-relaxed mb-4">Electrical Electronics Engineering(EEE)</p>
+                        
+                        <div class="mt-auto pt-6 border-t border-white/5 w-full">
+                            <span class="text-color-2 font-bold">Dhaka International University</span>
+                        </div>
+
+                        <!-- Half Slide-up Overlay -->
+                        <div class="card-overlay">
+                            <h5 class="text-lg font-bold">3.25 (Out of 4)</h5>
+                            <p class="text-xs text-blue-100 text-center mt-2 px-2">Duration of Course 4 Years (2025)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Education Card 2 -->
+                <div class="spotlight-card scroll-reveal" style="transition-delay: 0.1s">
+                    <div class="spotlight-inner p-10 text-center">
+                        <div class="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-6">
+                            <i data-lucide="award" class="text-blue-500 w-8 h-8"></i>
+                        </div>
+                        <span class="text-xs font-bold  uppercase tracking-widest mb-2">Diploma in Engineering</span>
+                        <h4 class="text-xl text-color-2 font-bold mb-3">Electrical Technology</h4>
+                        <p class=" text-sm text-color-2 leading-relaxed mb-4">Diploma in Electrical Engineering</p>
+                        
+                        <div class="mt-auto pt-6 border-t border-white/5 w-full">
+                            <span class="text-color-2 font-bold">IET,Rangpur</span>
+                        </div>
+
+                        <!-- Half Slide-up Overlay -->
+                        <div class="card-overlay">
+                            <h5 class="text-lg font-bold">2.99 (Out of 4.00)</h5>
+                            <p class="text-xs text-blue-100 text-center mt-2 px-2">Duration of Course 4 Years (2019)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Education Card 3 -->
+                <div class="spotlight-card scroll-reveal" style="transition-delay: 0.1s">
+                    <div class="spotlight-inner p-10 text-center">
+                        <div class="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-6">
+                            <i data-lucide="award" class="text-blue-500 w-8 h-8"></i>
+                        </div>
+                        <span class="text-xs font-bold  uppercase tracking-widest mb-2">Secondary School Certificate</span>
+                        <h4 class="text-xl text-color-2 font-bold mb-3">Science</h4>
+                        <p class=" text-sm text-color-2 leading-relaxed mb-4">Board Dinajpur</p>
+                        
+                        <div class="mt-auto pt-6 border-t border-white/5 w-full">
+                            <span class="text-color-2 font-bold">Mirzapur High School</span>
+                        </div>
+
+                        <!-- Half Slide-up Overlay -->
+                        <div class="card-overlay">
+                            <h5 class="text-lg font-bold">GPA- 4.67 (Out of 5.00)</h5>
+                            <p class="text-xs text-blue-100 text-center mt-2 px-2">Passing Year 2015</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Gallery Section  -->
+       <section id="gallery" class="py-16 border-t border-gray-800 light-mode:border-gray-300">
+            <div class="text-4xl font-bold mb-12 text-center gradient-text scroll-reveal">
+                <h3 class="text-3xl font-black uppercase tracking-widest">
+                    <i data-lucide="image" class="inline-block w-8 h-8 mr-3"></i> Gallery
+                </h3>
+                
+            </div>
+
+            <div class="gallery-container">
+                <div class="gallery-track">
+                    <!-- Gallery Item 1 -->
+                    <div class="gallery-item">
+                        <img src="https://i.postimg.cc/Qt3dgxF9/1654107820516.jpg" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h4 class="font-bold text-lg mb-2">Bangladesh Accreditation Board (BAB), Ministry of Industry</h4>
+                            <p class="text-sm text-gray-400 leading-relaxed">38th Understanding Training Course On ISO/IEC 17025-2017</p>
+                        </div>
+                    </div>
+                    <!-- Gallery Item 2 -->
+                    <div class="gallery-item">
+                        <img src="https://i.postimg.cc/xdrfYT39/1674196662501.jpg" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h4 class="font-bold text-lg mb-2">Certificate of Perticipation on ISO/ISE 17025:2017 (BAB)</h4>
+                            <p class="text-sm text-gray-400 leading-relaxed">Bangladesh Accreditation Board (BAB), Ministry of Industries.</p>
+                        </div>
+                    </div>
+                    <!-- Gallery Item 3 -->
+                    <div class="gallery-item">
+                        <img src="https://i.postimg.cc/ZnDmQT5H/1674196717500.jpg" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h4 class="font-bold text-lg mb-2">Technical Training Course for Calibration on Mechanical, Electro Technical, Thermal Instruments</h4>
+                            <p class="text-sm text-gray-400 leading-relaxed">ISO/IEC 17025:2017, Eastern Calibrators, 58/3, Prince Anwar Shah Rd, Kolkata, India.</p>
+                        </div>
+                    </div>
+                    <!-- Gallery Item 4 -->
+                    <div class="gallery-item">
+                        <img src="https://i.postimg.cc/5tqVV5tY/1674196840765.jpg" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h4 class="font-bold text-lg mb-2">Course in Computer Office Application</h4>
+                            <p class="text-sm text-gray-400 leading-relaxed">Have a good Work knowledge and experience on The national Standard Basic (360Hrs.) 6 Month Course in Computer Office Application.</p>
+                        </div>
+                    </div>
+                    <!-- Gallery Item 5 -->
+                    <div class="gallery-item">
+                        <img src="https://i.postimg.cc/WpfPT1sg/1756698828124.jpg" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h4 class="font-bold text-lg mb-2">(NTVQF) Level- 1</h4>
+                            <p class="text-sm text-gray-400 leading-relaxed">Have a good Work knowledge and experience on Solar Electrical System under National Technical & Vocational Qualification Frame Work (NTVQF) Level- 1</p>
+                        </div>
+                    </div>
+
+                    <!-- Duplicate for Infinity effect -->
+                    <div class="gallery-item">
+                        <img src="https://i.postimg.cc/Qt3dgxF9/1654107820516.jpg" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h4 class="font-bold text-lg mb-2">Bangladesh Accreditation Board (BAB), Ministry of Industry</h4>
+                            <p class="text-sm text-gray-400 leading-relaxed">38th Understanding Training Course On ISO/IEC 17025-2017</p>
+                        </div>
+                    </div>
+                    <!-- Gallery Item 2 -->
+                    <div class="gallery-item">
+                        <img src="https://i.postimg.cc/xdrfYT39/1674196662501.jpg" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h4 class="font-bold text-lg mb-2">Certificate of Perticipation on ISO/ISE 17025:2017 (BAB)</h4>
+                            <p class="text-sm text-gray-400 leading-relaxed">Bangladesh Accreditation Board (BAB), Ministry of Industries.</p>
+                        </div>
+                    </div>
+                    <!-- Gallery Item 3 -->
+                    <div class="gallery-item">
+                        <img src="https://i.postimg.cc/ZnDmQT5H/1674196717500.jpg" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h4 class="font-bold text-lg mb-2">Technical Training Course for Calibration on Mechanical, Electro Technical, Thermal Instruments</h4>
+                            <p class="text-sm text-gray-400 leading-relaxed">ISO/IEC 17025:2017, Eastern Calibrators, 58/3, Prince Anwar Shah Rd, Kolkata, India.</p>
+                        </div>
+                    </div>
+                    <!-- Gallery Item 4 -->
+                    <div class="gallery-item">
+                        <img src="https://i.postimg.cc/5tqVV5tY/1674196840765.jpg" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h4 class="font-bold text-lg mb-2">Course in Computer Office Application</h4>
+                            <p class="text-sm text-gray-400 leading-relaxed">Have a good Work knowledge and experience on The national Standard Basic (360Hrs.) 6 Month Course in Computer Office Application.</p>
+                        </div>
+                    </div>
+                    <!-- Gallery Item 5 -->
+                    <div class="gallery-item">
+                        <img src="https://i.postimg.cc/WpfPT1sg/1756698828124.jpg" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h4 class="font-bold text-lg mb-2">(NTVQF) Level- 1</h4>
+                            <p class="text-sm text-gray-400 leading-relaxed">Have a good Work knowledge and experience on Solar Electrical System under National Technical & Vocational Qualification Frame Work (NTVQF) Level- 1</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Contact Section  -->
+        <section id="contact" class="py-16 border-t border-gray-800 light-mode:border-gray-300">
+            <h3 class="text-4xl font-bold mb-12 text-center gradient-text scroll-reveal">
+                <i data-lucide="mail" class="inline-block w-8 h-8 mr-3"></i> Get In Touch
+            </h3>
+            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12">
+                
+                <!-- Left Side: Contact Information -->
+                <div class="spotlight-card scroll-reveal" style="--delay: 0.1s;">
+                    <div class="spotlight-content">
+                        <h4 class="text-3xl font-bold mb-6 gradient-text">Contact Information</h4>
+                    
+                    <div class="space-y-6">
+                        <!-- Phone -->
+                        <div class="flex items-start">
+                            <i data-lucide="phone" class="w-6 h-6 text-blue-400 mr-4 mt-1 flex-shrink-0"></i>
+                            <div>
+                                <p class="font-semibold text-lg">Phone</p>
+                                <a href="tel:+8801640327275" class="text-black-300 hover:text-blue-400 transition light-mode:text-black-700">+8801640327275</a>
+                            </div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="flex items-start">
+                            <i data-lucide="at-sign" class="w-6 h-6 text-blue-400 mr-4 mt-1 flex-shrink-0"></i>
+                            <div>
+                                <p class="font-semibold text-lg">Email</p>
+                                <a href="mailto:s.shahjalalshakil@gmail.com" class="text-black-300 hover:text-blue-400 transition light-mode:text-black-700">s.shahjalalshakil@gmail.com</a>
+                            </div>
+                        </div>
+
+                        <!-- Location -->
+                        <div class="flex items-start">
+                            <i data-lucide="map-pin" class="w-6 h-6 text-blue-400 mr-4 mt-1 flex-shrink-0"></i>
+                            <div>
+                                <p class="font-semibold text-lg">Location</p>
+                                <p class="text-black-300 light-mode:text-black-700">House #35, Road #12, Sector #12, Uttara, Dhaka-1230</p>
+                            </div>
+                        </div>
+                         </div>
+                    </div>
+                </div>
+
+                <!-- Right Side: Contact Form -->
+                <div class="spotlight-card scroll-reveal" style="--delay: 0.2s;">
+                    <div class="spotlight-content">
+                        <h4 class="text-3xl font-bold mb-6 gradient-text">Send a Message</h4>
+                        <form id="contact-form" class="space-y-4">
+                            <input type="text" id="name" name="from_name" required placeholder="Full Name" class="contact-input">
+                            <input type="email" id="email" name="reply_to" required placeholder="Email Address" class="contact-input">
+                            <textarea id="message" name="message" required rows="4" placeholder="Your Message" class="contact-input"></textarea>
+                            <button type="submit" id="submit-btn" class="w-full text-white btn-glow-gradient font-semibold py-4 rounded-lg flex justify-center items-center transition">
+                                <span id="btn-text">Ping Me</span>
+                                <i data-lucide="send" class="w-5 h-5 ml-2"></i>
+                            </button>
+                            <p id="form-msg" class="mt-4 text-center hidden"></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+           <!-- 7. Social Buttons Section Slider Hover Effect -->
+        <section id="social" class="py-12 border-t border-gray-800 light-mode:border-gray-300">
+            <h3 class="text-4xl font-bold mb-12 text-center gradient-text scroll-reveal">
+                <i data-lucide="share-2" class="inline-block w-8 h-8 mr-3"></i> Connect with Me
+            </h3>
+            
+            <!-- START HIGHLIGHT: SLIDER HOVER BUTTON STRUCTURE -->
+            <div class="flex justify-center scroll-reveal group" style="--delay: 0.1s;">
+                <!-- Main button/container that expands. Custom max-width for responsiveness -->
+                <div class="flex items-center rounded-lg shadow-2xl card-glow overflow-hidden social-slider-container w-16 group-hover:w-[280px] md:group-hover:w-96 transition-all duration-500 ease-in-out" style="background-color: var(--card-bg); border-color: var(--border-color);">
+                    <button type="button" class="w-16 h-16 flex items-center justify-center btn-glow-gradient text-white font-bold flex-shrink-0 transition-colors duration-300 group-hover:bg-blue-700 hover:scale-105 focus:outline-none" title="Connect">
+                        <i data-lucide="move-right" class="w-6 h-6"></i>
+                    </button>
+                    
+                    <!-- Icons Container (Slides in/appears on hover) -->
+                    <div class="flex space-x-4 px-4 items-center h-16 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-200">
+                        <!-- LinkedIn -->
+                        <a href="https://www.linkedin.com/in/md-shahjalal-shakil/" target="_blank" class="text-gray-400 hover:text-blue-400 light-mode:hover:text-blue-600 transition hover:scale-110" title="LinkedIn">
+                            <i data-lucide="linkedin" class="w-6 h-6"></i>
+                        </a>
+                        <!-- WhatsApp -->
+                        <a href="https://wa.me/+8801640327275" target="_blank" class="text-gray-400 hover:text-green-400 light-mode:hover:text-green-600 transition hover:scale-110" title="WhatsApp">
+                            <i data-lucide="message-square" class="w-6 h-6"></i>
+                        </a>
+                        <!-- Email -->
+                        <a href="mailto:s.shahjalalshakil@gmail.com" class="text-gray-400 hover:text-red-400 light-mode:hover:text-red-600 transition hover:scale-110" title="Email">
+                            <i data-lucide="at-sign" class="w-6 h-6"></i>
+                        </a>
+                        <!-- Facebook -->
+                        <a href="https://www.facebook.com/shahjalal.shakil.2025" target="_blank" class="text-gray-400 hover:text-blue-700 light-mode:hover:text-blue-800 transition hover:scale-110" title="Facebook">
+                            <i data-lucide="facebook" class="w-6 h-6"></i>
+                        </a>
+                        <!-- Scroll to Contact -->
+                        <a href="#contact" class="text-gray-400 hover:text-blue-400 light-mode:hover:text-blue-600 transition hover:scale-110" title="Contact Form">
+                            <i data-lucide="mail" class="w-6 h-6"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <!-- Floating Action Button (FAB) with Circular Text -->
+    <div id="fab-wrapper" class="fixed bottom-6 right-6 z-50">
+        <div class="circular-fab">
+            <!-- Circular Text will be injected here by JS -->
+            <div id="circular-text-display" class="circular-text text-gray-400 light-mode:text-gray-600">
+                <!-- Spans will be added here -->
+            </div>
+            
+            <!-- Main 'Hire Me' button - Perfectly Circular (Used main-fab class) -->
+            <!-- FAB is now styled purely via the .main-fab CSS hover for the glow effect -->
+            <a href="#contact" class="main-fab fab-glow text-white font-semibold shadow-2xl">
+                <!-- Icon only now -->
+                <i data-lucide="briefcase" class="w-6 h-6"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800 mt-16 light-mode:bg-white light-mode:border-gray-300 transition duration-300">
+        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center text-gray-400 light-mode:text-gray-600">
+            <p>&copy; 2026 All rights reserved | 
+                Crafted with Care by 
+                <a href="https://www.linkedin.com/in/md-shah-jamil-sifat/"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 class="footer-link">
+                 Shahjamil
+                </a>
+            </p>
+        </div>
+    </footer> 
+    
+
+    <!--  JavaScript for Scroll Animation, Theme Toggle, Form Handling, and Circular Text -->
+    <script>
+       
+
+        const form = document.getElementById("contact-form");
+        const msg = document.getElementById("form-msg");
+        const btnText = document.getElementById("btn-text");
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            btnText.innerText = "Sending...";
+            msg.classList.add("hidden");
+
+            emailjs.sendForm("service_6r776rh","template_nqai7bp",this).then(
+                function () {
+                    btnText.innerText = "Send Message";
+                    msg.innerText = "Message sent successfully ✅";
+                    msg.classList.remove("hidden");
+                    msg.classList.add("text-green-400");
+                    form.reset();
+                },
+                function (error) {
+                    btnText.innerText = "Send Message";
+                    msg.innerText = "Failed to send message ❌";
+                    msg.classList.remove("hidden");
+                    msg.classList.add("text-red-400");
+
+                    console.log(error);
+                }
+                
+            );
+        });
+        
+
+
+        const aboutContainer = document.getElementById('about-container');
+        if (aboutContainer) {
+            aboutContainer.addEventListener('mousemove', (e) => {
+                const rect = aboutContainer.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+                aboutContainer.style.setProperty('--mouse-x', `${x}%`);
+                aboutContainer.style.setProperty('--mouse-y', `${y}%`);
+            });
+        }
+        // Spotlight Effect Logic for Cards
+        const handleMouseMove = e => {
+            const cards = document.getElementsByClassName("spotlight-card");
+            for (const card of cards) {
+                const rect = card.getBoundingClientRect(),
+                x = e.clientX - rect.left,
+                y = e.clientY - rect.top;
+
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+                const text = card.querySelector('.spotlight-text');
+                if (text) {
+                    const textRect = text.getBoundingClientRect();
+                    const tx = e.clientX - textRect.left;
+                    const ty = e.clientY - textRect.top;
+                    text.style.setProperty("--mouse-x-inner", `${tx}px`);
+                    text.style.setProperty("--mouse-y-inner", `${ty}px`);
+                }
+                
+            }
+            
+            
+        };
+       
+        document.addEventListener("mousemove", handleMouseMove);
+
+
+
+        // Firebase global variables are defined locally with default values
+        var __app_id = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        var __firebase_config = typeof __firebase_config !== 'undefined' ? __firebase_config : '{}';
+        var __initial_auth_token = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : '';
+        
+        const themeToggleDesktop = document.getElementById('theme-toggle-desktop');
+        const themeIconDesktop = document.getElementById('theme-icon-desktop');
+        const switchIconContainerDesktop = document.getElementById('switch-icon-desktop');
+        
+        const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+        const themeIconMobile = document.getElementById('theme-icon-mobile');
+        const switchIconContainerMobile = document.getElementById('switch-icon-mobile');
+
+        const body = document.body;
+        const storedTheme = localStorage.getItem('theme') || 'dark';
+
+        // Function to initialize theme and set both icons correctly
+        function initializeTheme() {
+            const isLight = storedTheme === 'light';
+            if (isLight) {
+                body.classList.add('light-mode');
+            }
+            
+            // Set initial state for desktop
+            if (themeIconDesktop) themeIconDesktop.setAttribute('data-lucide', isLight ? 'sun' : 'sun');
+            
+            // Set initial state for mobile
+            if (themeIconMobile) themeIconMobile.setAttribute('data-lucide', isLight ? 'sun' : 'sun');
+
+            // Re-create Lucide icons to ensure they render
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+        
+
+
+        
+        // Function to toggle theme and update both sets of icons
+        function toggleTheme() {
+            let isLightMode = body.classList.contains('light-mode');
+            const newIsLightMode = !isLightMode;
+            const iconName = newIsLightMode ? 'sun' : 'sun';
+
+            const containersToSpin = [switchIconContainerDesktop, switchIconContainerMobile].filter(e => e);
+
+            // 1. Rotation Animation শুরু করুন
+            containersToSpin.forEach(container => {
+                // 'spin-active'
+                container.classList.add('spin-active');
+            });
+            
+            if (newIsLightMode) {
+                body.classList.add('light-mode');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.remove('light-mode');
+                localStorage.setItem('theme', 'dark');
+            }
+            
+
+            setTimeout(() => {
+                if (themeIconDesktop) themeIconDesktop.setAttribute('data-lucide', iconName);
+                if (themeIconMobile) themeIconMobile.setAttribute('data-lucide', iconName);
+                containersToSpin.forEach(container => {
+                    container.classList.remove('spin-active');
+                });
+                
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+
+            }, 500); 
+        }
+
+        if (themeToggleDesktop) themeToggleDesktop.addEventListener('click', toggleTheme);
+        if (themeToggleMobile) themeToggleMobile.addEventListener('click', toggleTheme);
+
+        // ------ Mobile Menu Logic---
+        const menuToggle = document.getElementById('menu-toggle');
+        const closeMenu = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        function openMenu() {
+            mobileMenu.classList.remove('-translate-x-full');
+            document.body.classList.add('menu-open'); 
+        }
+
+        function closeMenuHandler() {
+            mobileMenu.classList.add('-translate-x-full');
+            document.body.classList.remove('menu-open'); 
+        }
+
+        if (menuToggle) menuToggle.addEventListener('click', openMenu);
+        if (closeMenu) closeMenu.addEventListener('click', closeMenuHandler);
+
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', closeMenuHandler);
+        });
+
+        //  --- Scroll Animation Logic  ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                } else {
+
+                    entry.target.classList.remove('is-visible');
+                }
+            });
+        }, {
+
+            threshold: 0.1, 
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        document.querySelectorAll('.scroll-reveal').forEach(element => {
+            observer.observe(element);
+        });
+
+
+
+        // --- Circular Text FAB Logic ---
+        const circularTextElement = document.getElementById('circular-text-display');
+        const textToDisplay = "SERVICE & CALIBRATION ENGINEER . ";
+        const numCharacters = textToDisplay.length;
+        const angleIncrement = 360 / numCharacters; 
+        
+        if (circularTextElement) {
+            textToDisplay.split('').forEach((char, index) => {
+                const span = document.createElement('span');
+                span.textContent = char;
+                const rotation = angleIncrement * index;
+                span.style.transform = `rotate(${rotation}deg)`;
+                span.style.transformOrigin = `0 75px`; 
+                
+                circularTextElement.appendChild(span);
+            });
+        }
+
+        initializeTheme();
+
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                closeMenuHandler(); 
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
