@@ -654,24 +654,24 @@
             transform: translateY(-3px) scale(1.02);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
         }
-        .gallery-container {
+        .training-container {
             overflow: hidden;
             position: relative;
             width: 100%;
             padding: 2rem 0;
         }
 
-        .gallery-track {
+        .training-track {
             display: flex;
             width: calc(250px * 10); 
             animation: scroll 40s linear infinite;
         }
 
-        .gallery-track:hover {
+        .training-track:hover {
             animation-play-state: paused;
         }
 
-        .gallery-item {
+        .training-item {
             width: 300px;
             flex-shrink: 0;
             margin-right: 2rem;
@@ -682,10 +682,173 @@
             transition: transform 0.9s ease;
         }
 
-        .gallery-item:hover {
+        .training-item:hover {
             transform: scale(1.05);
             border-color: var(--primary-color);
         }
+        /* --- 3D Unfold Gallery FX --- */
+        .gallery-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 80px;
+            padding: 50px 0;
+            perspective: 1000px;
+        }
+
+        .unfold-card {
+            position: relative;
+            width: 200px;
+            height: 150px;
+            transform-style: preserve-3d;
+            transform: rotateX(30deg);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        /* Hover or Active state triggers unfold */
+        .unfold-card:hover, .unfold-card.active {
+            transform: rotateX(0deg) translateZ(50px);
+            z-index: 50;
+        }
+
+        .unfold-card .fragment-list {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            transform-style: preserve-3d;
+        }
+
+        .unfold-card .fragment-list li {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-size: 300% 300%;
+            background-repeat: no-repeat;
+            backface-visibility: hidden;
+            transition: transform 0.5s, filter 0.5s, opacity 0.5s;
+            filter: grayscale(0.6);
+            border: 0.5px solid rgba(255,255,255,0.1);
+        }
+
+        .unfold-card:hover li, .unfold-card.active li {
+            filter: grayscale(0);
+        }
+
+        /* Fragments positioning Logic */
+        /* Center piece */
+        .unfold-card li:nth-child(1) { background-position: center center; z-index: 10; transform: none; }
+        
+        /* Spread Positions */
+        .unfold-card li:nth-child(2) { background-position: right center; left: 100%; transform-origin: left; transform: rotateY(170deg); }
+        .unfold-card li:nth-child(3) { background-position: center bottom; top: 100%; transform-origin: top; transform: rotateX(-170deg); }
+        .unfold-card li:nth-child(4) { background-position: left center; left: -100%; transform-origin: right; transform: rotateY(-170deg); }
+        .unfold-card li:nth-child(5) { background-position: center top; top: -100%; transform-origin: bottom; transform: rotateX(170deg); }
+        
+        /* Corners */
+        .unfold-card li:nth-child(6) { background-position: right bottom; top: 100%; left: 100%; transform-origin: top; transform: rotateX(-170deg); }
+        .unfold-card li:nth-child(7) { background-position: left bottom; top: 100%; left: -100%; transform-origin: right; transform: rotateY(-170deg); }
+        .unfold-card li:nth-child(8) { background-position: left top; top: -100%; left: -100%; transform-origin: bottom; transform: rotateX(170deg); }
+        .unfold-card li:nth-child(9) { background-position: right top; top: -100%; left: 100%; transform-origin: left; transform: rotateY(170deg); }
+
+        /* Final State on Hover/Active */
+        .unfold-card:hover li:nth-child(2), .unfold-card:hover li:nth-child(4),
+        .unfold-card:hover li:nth-child(7), .unfold-card:hover li:nth-child(9),
+        .unfold-card.active li:nth-child(2), .unfold-card.active li:nth-child(4),
+        .unfold-card.active li:nth-child(7), .unfold-card.active li:nth-child(9) { transform: rotateY(0); }
+
+        .unfold-card:hover li:nth-child(3), .unfold-card:hover li:nth-child(5),
+        .unfold-card:hover li:nth-child(6), .unfold-card:hover li:nth-child(8),
+        .unfold-card.active li:nth-child(3), .unfold-card.active li:nth-child(5),
+        .unfold-card.active li:nth-child(6), .unfold-card.active li:nth-child(8) { transform: rotateX(0); }
+
+        /* Transition Delays */
+        .unfold-card li:nth-child(n+6) { transition-delay: 0s; }
+        .unfold-card:hover li:nth-child(n+6), .unfold-card.active li:nth-child(n+6) { transition-delay: 0.2s; }
+
+        /* Card Content (Visible only on unfold) */
+        .card-label {
+            position: absolute;
+            bottom: -60px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            opacity: 0;
+            transition: all 0.4s;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--primary-color);
+        }
+        .unfold-card:hover .card-label, .unfold-card.active .card-label {
+            opacity: 1;
+            bottom: -110px;
+        }
+        @keyframes slideAndBack {
+            0% { transform: scale(1.5) translateX(0); z-index: 100; }
+            40% { transform: scale(1) translateX(-160%) rotateZ(-10deg); z-index: 100; }
+            60% { z-index: -10; }
+            100% { transform: scale(0.8) translateX(0); z-index: -1; }
+        }
+
+        /* ইমেজ বক্স - এক্টিভ মোডে হাইড হবে */
+        .card-image-box {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            transition: opacity 0.4s ease, height 0.4s ease;
+        }
+        .card-item.active .card-image-box {
+            height: 0;
+            opacity: 0;
+        }
+        .card-image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-info {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            transition: all 0.4s ease;
+        }
+
+        /* টাইটেল বড় হওয়া */
+        .card-item.active .card-info h4 {
+            font-size: 1.75rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .detail-content {
+            max-height: 0;
+            opacity: 0;
+            overflow-y: auto;
+            transition: all 0.5s ease;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #94a3b8;
+        }
+
+        .card-item.active .detail-content {
+            max-height: 300px;
+            opacity: 1;
+            margin-top: 15px;
+            padding-right: 5px;
+        }
+
+        /* Custom Scrollbar for Details */
+        .detail-content::-webkit-scrollbar { width: 4px; }
+        .detail-content::-webkit-scrollbar-thumb { background: var(--primary-color); border-radius: 10px; }
 
         @keyframes scroll {
             0% { transform: translateX(0); }
@@ -741,6 +904,10 @@
                         <i data-lucide="graduation-cap" class="nav-icon"></i>
                         <span class="icon-label">Qualifications</span>
                     </a>
+                    <a href="#training" class="nav-icon-button" title="Training">
+                        <i data-lucide="activity" class="nav-icon"></i>
+                        <span class="icon-label">Training</span>
+                    </a>
                     <a href="#gallery" class="nav-icon-button" title="Gallery">
                         <i data-lucide="image" class="nav-icon"></i>
                         <span class="icon-label">Gallery</span>
@@ -793,6 +960,7 @@
                 <a href="#experience" class="mobile-nav-link text-lg font-medium hover:text-blue-400 transition py-3 px-2 rounded-md">Journey</a>
                 <a href="#projects" class="mobile-nav-link text-lg font-medium hover:text-blue-400 transition py-3 px-2 rounded-md">Creations</a>
                 <a href="#education" class="mobile-nav-link text-lg font-medium hover:text-blue-400 transition py-3 px-2 rounded-md">Education</a>
+                <a href="#training" class="mobile-nav-link text-lg font-medium hover:text-blue-400 transition py-3 px-2 rounded-md">Training</a>
                 <a href="#gallery" class="mobile-nav-link text-lg font-medium hover:text-blue-400 transition py-3 px-2 rounded-md">Gallery</a>
                 <a href="#contact" class="mobile-nav-link text-lg font-medium hover:text-blue-400 transition py-3 px-2 rounded-md">Reach Out</a>
             </div>
@@ -914,9 +1082,24 @@
             </h3>
             <div class="max-w-4xl mx-auto">
                 
+                <!-- Job 0: Power Pro (Latest) -->
+                <div class="timeline-item pb-10 scroll-reveal" style="--delay: 0.1s;">
+                    <p class="text-sm font-medium text-black-400 light-mode:text-black-500">April 2026 - Present</p>
+                    <h4 class="text-3xl font-bold gradient-text">Engineer (Service & Support)</h4>
+                    <p class="text-lg text-color-2 mb-2 font-bold  ">Power Pro</p>
+                    <ul class="list-disc list-inside text-black-400 space-y-1 light-mode:text-black-600">
+                        <li>Diagnose and troubleshoot technical issues in machinery, mechanical systems, and electrical appliances, ensuring timely and effective resolution.</li>
+                        <li>Install, service, and maintain textile testing machines and laundry systems, including Electrolux washers, dryers, and ironing machines.</li>
+                        <li>Conducting calibration services for various laboratory and industrial equipment to maintain accuracy and compliance with industry standards.</li>
+                        <li>Implement problem solving strategies to identify root causes, gather technical information, and implement sustainable solutions.</li>
+                        <li>Conduct recruitment and selection processes to meet organizational manpower requirements.</li>
+                        <li>Voluntarily travel to client sites and project locations, taking full responsibility for delivering assigned tasks and services.</li>
+                    </ul>
+                </div>
+                
                 <!-- Job 1: Farabi Corporation (Latest) -->
                 <div class="timeline-item pb-10 scroll-reveal" style="--delay: 0.1s;">
-                    <p class="text-sm font-medium text-black-400 light-mode:text-black-500">July 2024 - Present</p>
+                    <p class="text-sm font-medium text-black-400 light-mode:text-black-500">July 2024 - February 2026</p>
                     <h4 class="text-3xl font-bold gradient-text">Engineer (Service & Calibration)</h4>
                     <p class="text-lg text-color-2 mb-2 font-bold  ">Farabi Corporation</p>
                     <ul class="list-disc list-inside text-black-400 space-y-1 light-mode:text-black-600">
@@ -975,19 +1158,7 @@
                         <li>Time to time follow up & decision taken for quick support on maintenance purpose to management.</li>
                     </ul>
                 </div>
-                <!-- Job 5: Industrial Training -->
-                <div class="timeline-item pb-0 scroll-reveal" style="--delay: 0.5s;">
-                    <p class="text-sm font-medium text-black-400 light-mode:text-black-500">February2019 - April 2019</p>
-                    <h4 class="text-3xl font-bold gradient-text">Industrial Training</h4>
-                    <p class="text-lg text-color-2 mb-2 font-bold  ">Impress-Newtex Composite Textiles Ltd.</p>
-                    <ul class="list-disc list-inside text-black-400 space-y-1 light-mode:text-black-600">
-                        <li>Understanding Training Course on ISO/ISE 17025:2017 Bangladesh Accreditation Board (BAB), Ministry of Industries.</li>
-                        <li>Technical Training Course for Calibration on Mechanical, Electro Technical,Thermal Instruments under ISO/ISE 17025:2017, Easterin Calibrators, 58/3, Prince Anwar Shah Rd, Kolkata, India.</li>
-                        <li>Have a good Work knowledge and experience on Solar Electrical System under National Technical & Vocational Qualification Frame Work (NTVQF) Level- 1 and Level-2.</li>
-                        <li>Have a good Work knowledge and experience on The National Standard Basic (360 Hrs.) 6 Month Course in Computer Office Application. Grade-(A) Out of (A+).</li>
-                        <li>Have a good Work knowledge and experience on Professional Outsourcing Training on Digital Marketing conducted by the Learning and Earning Development Project. (ICT Division).</li>
-                    </ul>
-                </div>
+                
 
             </div>
         </section>
@@ -1100,98 +1271,167 @@
                 </div>
             </div>
         </section>
-
-        <!-- 6. Gallery Section  -->
-       <section id="gallery" class="py-16 border-t border-gray-800 light-mode:border-gray-300">
+        <section id="training" class="py-16 border-t border-gray-800 light-mode:border-gray-300">
             <div class="text-4xl font-bold mb-12 text-center gradient-text scroll-reveal">
                 <h3 class="text-3xl font-black uppercase tracking-widest">
-                    <i data-lucide="image" class="inline-block w-8 h-8 mr-3"></i> Gallery
+                    <i data-lucide="activity" class="inline-block w-8 h-8 mr-3"></i> Training
                 </h3>
                 
             </div>
 
-            <div class="gallery-container">
-                <div class="gallery-track">
-                    <!-- Gallery Item 1 -->
-                    <div class="gallery-item">
+            <div class="training-container">
+                <div class="training-track">
+                    <!-- training Item 1 -->
+                    <div class="training-item">
                         <img src="https://i.postimg.cc/Qt3dgxF9/1654107820516.jpg" class="w-full h-48 object-cover">
                         <div class="p-6">
                             <h4 class="font-bold text-lg mb-2">Bangladesh Accreditation Board (BAB), Ministry of Industry</h4>
                             <p class="text-sm text-gray-400 leading-relaxed">38th Understanding Training Course On ISO/IEC 17025-2017</p>
                         </div>
                     </div>
-                    <!-- Gallery Item 2 -->
-                    <div class="gallery-item">
+                    <!-- training Item 2 -->
+                    <div class="training-item">
                         <img src="https://i.postimg.cc/xdrfYT39/1674196662501.jpg" class="w-full h-48 object-cover">
                         <div class="p-6">
                             <h4 class="font-bold text-lg mb-2">Certificate of Perticipation on ISO/ISE 17025:2017 (BAB)</h4>
                             <p class="text-sm text-gray-400 leading-relaxed">Bangladesh Accreditation Board (BAB), Ministry of Industries.</p>
                         </div>
                     </div>
-                    <!-- Gallery Item 3 -->
-                    <div class="gallery-item">
+                    <!-- training Item 3 -->
+                    <div class="training-item">
                         <img src="https://i.postimg.cc/ZnDmQT5H/1674196717500.jpg" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <h4 class="font-bold text-lg mb-2">Technical Training Course for Calibration on Mechanical, Electro Technical, Thermal Instruments</h4>
-                            <p class="text-sm text-gray-400 leading-relaxed">ISO/IEC 17025:2017, Eastern Calibrators, 58/3, Prince Anwar Shah Rd, Kolkata, India.</p>
-                        </div>
-                    </div>
-                    <!-- Gallery Item 4 -->
-                    <div class="gallery-item">
-                        <img src="https://i.postimg.cc/5tqVV5tY/1674196840765.jpg" class="w-full h-48 object-cover">
                         <div class="p-6">
                             <h4 class="font-bold text-lg mb-2">Course in Computer Office Application</h4>
                             <p class="text-sm text-gray-400 leading-relaxed">Have a good Work knowledge and experience on The national Standard Basic (360Hrs.) 6 Month Course in Computer Office Application.</p>
                         </div>
                     </div>
-                    <!-- Gallery Item 5 -->
-                    <div class="gallery-item">
+                    <!-- training Item 4 -->
+                    <div class="training-item">
+                        <img src="https://i.postimg.cc/5tqVV5tY/1674196840765.jpg" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h4 class="font-bold text-lg mb-2">(NTVQF) Level- 1 and Level-2.</h4>
+                            <p class="text-sm text-gray-400 leading-relaxed">Have a good Work knowledge and experience on Solar Electrical System under National Technical & Vocational Qualification Frame Work (NTVQF) Level- 1 and Level-2.</p>
+                        </div>
+                    </div>
+                    <!--  training Item 5 -->
+                    <div class="training-item">
                         <img src="https://i.postimg.cc/WpfPT1sg/1756698828124.jpg" class="w-full h-48 object-cover">
                         <div class="p-6">
-                            <h4 class="font-bold text-lg mb-2">(NTVQF) Level- 1</h4>
-                            <p class="text-sm text-gray-400 leading-relaxed">Have a good Work knowledge and experience on Solar Electrical System under National Technical & Vocational Qualification Frame Work (NTVQF) Level- 1</p>
+                            <h4 class="font-bold text-lg mb-2">Technical Training Course for Calibration on Mechanical, Electro Technical, Thermal Instruments</h4>
+                            <p class="text-sm text-gray-400 leading-relaxed">ISO/IEC 17025:2017, Eastern Calibrators, 58/3, Prince Anwar Shah Rd, Kolkata, India.</p>
                         </div>
                     </div>
 
                     <!-- Duplicate for Infinity effect -->
-                    <div class="gallery-item">
+                    <div class="training-item">
                         <img src="https://i.postimg.cc/Qt3dgxF9/1654107820516.jpg" class="w-full h-48 object-cover">
                         <div class="p-6">
                             <h4 class="font-bold text-lg mb-2">Bangladesh Accreditation Board (BAB), Ministry of Industry</h4>
                             <p class="text-sm text-gray-400 leading-relaxed">38th Understanding Training Course On ISO/IEC 17025-2017</p>
                         </div>
                     </div>
-                    <!-- Gallery Item 2 -->
-                    <div class="gallery-item">
+                    <!-- training Item 2 -->
+                    <div class="training-item">
                         <img src="https://i.postimg.cc/xdrfYT39/1674196662501.jpg" class="w-full h-48 object-cover">
                         <div class="p-6">
                             <h4 class="font-bold text-lg mb-2">Certificate of Perticipation on ISO/ISE 17025:2017 (BAB)</h4>
                             <p class="text-sm text-gray-400 leading-relaxed">Bangladesh Accreditation Board (BAB), Ministry of Industries.</p>
                         </div>
                     </div>
-                    <!-- Gallery Item 3 -->
-                    <div class="gallery-item">
+                    <!-- training Item 3 -->
+                    <div class="training-item">
                         <img src="https://i.postimg.cc/ZnDmQT5H/1674196717500.jpg" class="w-full h-48 object-cover">
                         <div class="p-6">
                             <h4 class="font-bold text-lg mb-2">Technical Training Course for Calibration on Mechanical, Electro Technical, Thermal Instruments</h4>
                             <p class="text-sm text-gray-400 leading-relaxed">ISO/IEC 17025:2017, Eastern Calibrators, 58/3, Prince Anwar Shah Rd, Kolkata, India.</p>
                         </div>
                     </div>
-                    <!-- Gallery Item 4 -->
-                    <div class="gallery-item">
+                    <!--    training Item 4 -->
+                    <div class="training-item">
                         <img src="https://i.postimg.cc/5tqVV5tY/1674196840765.jpg" class="w-full h-48 object-cover">
                         <div class="p-6">
                             <h4 class="font-bold text-lg mb-2">Course in Computer Office Application</h4>
                             <p class="text-sm text-gray-400 leading-relaxed">Have a good Work knowledge and experience on The national Standard Basic (360Hrs.) 6 Month Course in Computer Office Application.</p>
                         </div>
                     </div>
-                    <!-- Gallery Item 5 -->
-                    <div class="gallery-item">
+                    <!--    training Item 5 -->
+                    <div class="training-item">
                         <img src="https://i.postimg.cc/WpfPT1sg/1756698828124.jpg" class="w-full h-48 object-cover">
                         <div class="p-6">
                             <h4 class="font-bold text-lg mb-2">(NTVQF) Level- 1</h4>
                             <p class="text-sm text-gray-400 leading-relaxed">Have a good Work knowledge and experience on Solar Electrical System under National Technical & Vocational Qualification Frame Work (NTVQF) Level- 1</p>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="py-16 border-t border-gray-800 light-mode:border-gray-300">
+            <div class="text-4xl font-bold mb-12 text-center gradient-text scroll-reveal">
+                <h3 class="text-3xl font-black uppercase tracking-widest"> 
+                    <i data-lucide="image" class="inline-block w-8 h-8 mr-3"></i>Gallery
+                </h3>
+                
+                <p class="text-gray-500"><span class="text-blue-500 font-bold"></span></p>
+                
+            </div>
+            
+            <div class="gallery-container">
+                <!-- Project 1 -->
+                <div class="unfold-card">
+                    <ul class="fragment-list">
+                        <li style="background-image:url(https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=600);"></li>
+                        <li style="background-image:url(https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=600);"></li>
+                        <li style="background-image:url(https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=600);"></li>
+                        <li style="background-image:url(https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=600);"></li>
+                        <li style="background-image:url(https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=600);"></li>
+                        <li style="background-image:url(https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=600);"></li>
+                        <li style="background-image:url(https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=600);"></li>
+                        <li style="background-image:url(https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=600);"></li>
+                        <li style="background-image:url(https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=600);"></li>
+                    </ul>
+                    <div class="card-label">
+                        <h4>Technical Support</h4>
+                        <p class="text-xs text-gray-500">Service Excellence</p>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="unfold-card">
+                    <ul class="fragment-list">
+                        <li style="background-image:url(https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600);"></li>
+                        <li style="background-image:url(https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600);"></li>
+                        <li style="background-image:url(https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600);"></li>
+                        <li style="background-image:url(https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600);"></li>
+                        <li style="background-image:url(https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600);"></li>
+                        <li style="background-image:url(https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600);"></li>
+                        <li style="background-image:url(https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600);"></li>
+                        <li style="background-image:url(https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600);"></li>
+                        <li style="background-image:url(https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600);"></li>
+                    </ul>
+                    <div class="card-label">
+                        <h4>Calibration Lab</h4>
+                        <p class="text-xs text-gray-500">Accuracy & Data</p>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="unfold-card">
+                    <ul class="fragment-list">
+                        <li style="background-image:url(https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600);"></li>
+                        <li style="background-image:url(https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600);"></li>
+                        <li style="background-image:url(https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600);"></li>
+                        <li style="background-image:url(https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600);"></li>
+                        <li style="background-image:url(https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600);"></li>
+                        <li style="background-image:url(https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600);"></li>
+                        <li style="background-image:url(https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600);"></li>
+                        <li style="background-image:url(https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600);"></li>
+                        <li style="background-image:url(https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600);"></li>
+                    </ul>
+                    <div class="card-label">
+                        <h4>Compliance Audit</h4>
+                        <p class="text-xs text-gray-500">Global Standards</p>
                     </div>
                 </div>
             </div>
@@ -1287,8 +1527,8 @@
                             <i data-lucide="at-sign" class="w-6 h-6"></i>
                         </a>
                         <!-- Facebook -->
-                        <a href="https://www.facebook.com/shahjalal.shakil.2025" target="_blank" class="text-gray-400 hover:text-blue-700 light-mode:hover:text-blue-800 transition hover:scale-110" title="Facebook">
-                            <i data-lucide="facebook" class="w-6 h-6"></i>
+                         <a href="https://www.facebook.com/shahjalal.shakil.2025" target="_blank" class="text-gray-400 hover:text-red-400 light-mode:hover:text-red-600 transition hover:scale-110" title="Facebook">
+                             <i data-lucide="Facebook" class="w-6 h-6"></i>
                         </a>
                         <!-- Scroll to Contact -->
                         <a href="#contact" class="text-gray-400 hover:text-blue-400 light-mode:hover:text-blue-600 transition hover:scale-110" title="Contact Form">
@@ -1405,6 +1645,13 @@
         };
        
         document.addEventListener("mousemove", handleMouseMove);
+        // --- Interaction Logic ---
+        const cards = document.querySelectorAll('.unfold-card');
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                card.classList.toggle('active');
+            });
+        });
 
 
 
